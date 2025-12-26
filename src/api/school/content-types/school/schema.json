@@ -1,0 +1,56 @@
+{
+  "kind": "collectionType",
+  "collectionName": "schools",
+  "info": {
+    "singularName": "school",
+    "pluralName": "schools",
+    "displayName": "School"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "priority": {
+      "type": "integer",
+      "required": false
+    },
+    "school": {
+      "type": "string",
+      "required": true
+    },
+    "schoolId": {
+      "type": "string",
+      "required": true
+    },
+    "schoolCover": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "files",
+        "videos"
+      ]
+    },
+    "schoolLogo": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "files",
+        "images"
+      ]
+    },
+    "proms": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::prom.prom",
+      "mappedBy": "school"
+    },
+    "lastProm": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::prom.prom"
+    }
+  }
+}

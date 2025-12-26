@@ -1,0 +1,52 @@
+{
+  "kind": "collectionType",
+  "collectionName": "proms",
+  "info": {
+    "singularName": "prom",
+    "pluralName": "proms",
+    "displayName": "Prom"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "promId": {
+      "type": "integer",
+      "required": true
+    },
+    "promText": {
+      "type": "text"
+    },
+    "promSubText": {
+      "type": "string"
+    },
+    "promCover": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "promPics": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "promVideoId": {
+      "type": "string"
+    },
+    "school": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::school.school",
+      "inversedBy": "proms"
+    }
+  }
+}
