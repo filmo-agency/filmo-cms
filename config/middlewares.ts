@@ -7,8 +7,10 @@ module.exports = [
       origin: [
         'http://192.168.100.125:3000',
         'http://localhost:3000',
-        'https://new-filmo-landing-og1t.vercel.app',
-        'https://*.vercel.app',
+        'https://www.filmostudio.com/',
+        'https://filmostudio.com',
+        'https://filmo-web.vercel.app'
+
       ],
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
       headers: ['Content-Type', 'Authorization'],
