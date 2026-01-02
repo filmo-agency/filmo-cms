@@ -15,15 +15,15 @@
       "type": "integer",
       "required": false
     },
-    "school": {
+    "name": {
       "type": "string",
       "required": true
     },
-    "schoolId": {
+    "slug": {
       "type": "string",
       "required": true
     },
-    "schoolCover": {
+    "cover": {
       "type": "media",
       "multiple": false,
       "required": true,
@@ -32,7 +32,7 @@
         "videos"
       ]
     },
-    "schoolLogo": {
+    "logo": {
       "type": "media",
       "multiple": false,
       "required": true,

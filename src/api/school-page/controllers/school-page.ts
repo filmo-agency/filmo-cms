@@ -2,11 +2,11 @@
 
 module.exports = {
   async show(ctx) {
-    const { schoolId } = ctx.params;
+    const { slug } = ctx.params;
 
     const data = await strapi
       .service('api::school-page.school-page')
-      .getSchoolPage(schoolId);
+      .getSchoolPage(slug);
 
     if (!data) {
       ctx.notFound();

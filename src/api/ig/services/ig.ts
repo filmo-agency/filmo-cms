@@ -1,29 +1,33 @@
-import axios from 'axios';
+'use strict';
+
+const axios = require('axios');
 
 export default {
-  
-  async getPosts() {
-    try {
-      const token = process.env.INSTAGRAM_ACCESS_TOKEN;
-      const userId = process.env.INSTAGRAM_USER_ID;
+  async fetchPosts() {
+    const token = process.env.INSTAGRAM_ACCESS_TOKEN;
+    const userId = process.env.INSTAGRAM_USER_ID;
 
-      const res = await axios.get(
-        `https://graph.instagram.com/${userId}/media`,
-        {
-          params: {
-            fields: 'id,media_url,permalink,thumbnail_url,media_type,caption',
-            access_token: token,
-          },
-        }
-      );
-
-      return res.data.data.slice(0, 3);
-    } catch (err: any) {
-      console.error(
-        'Instagram error:',
-        err.response?.data || err.message
-      );
-      throw err;
+    if (!token || !userId) {
+      throw new Error('Instagram env vars missing');
     }
+
+    const res = await axios.get(
+      `https://graph.instagram.com/${userId}/media`,
+      {
+        params: {
+          fields: 'id,media_url,permalink,media_type,thumbnail_url',
+          access_token: token,
+          limit: 3,
+        },
+      }
+    );
+
+    return res.data.data.map((post) => ({
+      id: post.id,
+      mediaUrl: post.media_url,
+      permalink: post.permalink,
+      mediaType: post.media_type,
+      thumbnailUrl: post.thumbnail_url ?? null,
+    }));
   },
 };

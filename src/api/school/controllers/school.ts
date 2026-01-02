@@ -1,18 +1,36 @@
 'use strict';
 
-module.exports = {
-  async findBySchoolId(ctx) {
-    const { schoolId } = ctx.params;
+const { createCoreController } = require('@strapi/strapi').factories;
 
-    const data = await strapi
-      .service('api::school-page.school-page')
-      .getSchoolPage(schoolId);
+module.exports = createCoreController('api::school.school', ({ strapi }) => ({
+  async listSchoolSlugs(ctx) {
+    const rows = await strapi.db.query('api::school.school').findMany({
+      select: ['slug'],
+    });
 
-    if (!data) {
-      ctx.notFound();
-      return;
+    const unique = Array.from(new Map(rows.map((r) => [r.slug, r])).values());
+
+    return unique;
+  },
+
+  async findPromsBySlug(ctx) {
+    const { slug } = ctx.params;
+
+    const school = await strapi.db.query('api::school.school').findOne({
+      where: { slug },
+      populate: {
+        proms: {
+          select: ['promId'],
+        },
+      },
+    });
+
+    if (!school) {
+      return ctx.notFound('School not found');
     }
 
-    ctx.body = data;
+    return school.proms.map((prom) => ({
+      prom: prom.promId,
+    }));
   },
-};
+}));

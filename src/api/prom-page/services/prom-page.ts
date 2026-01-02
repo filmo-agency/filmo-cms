@@ -1,12 +1,12 @@
 module.exports = {
-  async getPromPageBySchool(schoolId, promId) {
+  async getPromPageBySchool(slug, promId) {
     const prom = (await strapi.entityService.findMany(
       'api::prom.prom',
       {
         filters: {
           promId,
           school: {
-            schoolId,
+            slug,
           },
         },
         populate: {

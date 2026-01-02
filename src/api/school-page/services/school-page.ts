@@ -1,15 +1,15 @@
 'use strict';
 
 module.exports = {
-  async getSchoolPage(schoolId) {
+  async getSchoolPage(slug) {
     const school = await strapi.entityService.findMany(
       'api::school.school',
       {
-        filters: { schoolId },
-        fields: ['schoolId', 'school'],
+        filters: { slug },
+        fields: ['slug', 'name'],
         populate: {
-          schoolLogo: { fields: ['url'] },
-          schoolCover: { fields: ['url'] },
+          logo: { fields: ['url'] },
+          cover: { fields: ['url'] },
           proms: {
             fields: ['promId'],
             sort: { promId: 'desc' },
@@ -25,10 +25,10 @@ module.exports = {
     if (!s) return null;
 
     return {
-      id: s.schoolId,
-      name: s.school,
-      logo: s.schoolLogo?.url ?? null,
-      cover: s.schoolCover?.url ?? null,
+      id: s.slug,
+      name: s.name,
+      logo: s.logo?.url ?? null,
+      cover: s.cover?.url ?? null,
       proms: s.proms.map((p) => ({
         id: p.promId,
         cover: p.promCover?.url ?? null,

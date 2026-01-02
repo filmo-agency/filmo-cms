@@ -6,10 +6,10 @@ module.exports = {
       'api::school.school',
       {
         sort: { priority: 'asc' },
-        fields: ['schoolId', 'school', 'priority'],
+        fields: ['slug', 'name', 'priority'],
         populate: {
-          schoolLogo: { fields: ['url'] },
-          schoolCover: { fields: ['url'] }
+          logo: { fields: ['url'] },
+          cover: { fields: ['url'] }
         },
       }
     );
@@ -17,11 +17,11 @@ module.exports = {
     return {
       // Algun dia crear la interfaz
       schools: (schools as any[]).map((school) => ({
-        id: school.schoolId,
-        name: school.school,
+        id: school.slug,
+        name: school.name,
         priority: school.priority,
-        logo: school.schoolLogo?.url ?? null,
-        cover: school.schoolCover?.url ?? null
+        logo: school.logo?.url ?? null,
+        cover: school.cover?.url ?? null
       })),
     };
   },

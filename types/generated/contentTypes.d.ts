@@ -474,6 +474,8 @@ export interface ApiSchoolSchool extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    cover: Schema.Attribute.Media<'files' | 'videos'> &
+      Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -484,15 +486,13 @@ export interface ApiSchoolSchool extends Struct.CollectionTypeSchema {
       'api::school.school'
     > &
       Schema.Attribute.Private;
+    logo: Schema.Attribute.Media<'files' | 'images'> &
+      Schema.Attribute.Required;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
     priority: Schema.Attribute.Integer;
     proms: Schema.Attribute.Relation<'oneToMany', 'api::prom.prom'>;
     publishedAt: Schema.Attribute.DateTime;
-    school: Schema.Attribute.String & Schema.Attribute.Required;
-    schoolCover: Schema.Attribute.Media<'files' | 'videos'> &
-      Schema.Attribute.Required;
-    schoolId: Schema.Attribute.String & Schema.Attribute.Required;
-    schoolLogo: Schema.Attribute.Media<'files' | 'images'> &
-      Schema.Attribute.Required;
+    slug: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
